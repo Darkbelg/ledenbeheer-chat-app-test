@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
+    <script src="js/script.js" type="text/javascript"></script>
+    <link href="css/styles.css" rel="stylesheet">
     <title>Chat app Ledenbeheer</title>
 </head>
 <style>
@@ -17,6 +20,24 @@
     }
 </style>
 <body>
-    <h1>Chat application Ledenbeheer</h1>
+    <div>
+        <h1>Chat application Ledenbeheer</h1>
+    </div>
+    <a href="http://localhost:8000?q=moderators">Show all moderators</a>
+
+    <div class="no-flex">
+    <form action="" method="post" id="chatSession">
+        <label for="firstname">Firstname:
+            <input type="text" name="firstname" id="firstname" required>
+        </label>
+        <label for="lastname">Lastname:
+            <input type="text" name="lastname" id="lastname" required>
+        </label>
+        <label for="email">Email:
+            <input type="email" name="email" id="email" required>
+        </label>
+        <button>Add Chat</button>
+    </form>
+    </div>
 </body>
 </html>

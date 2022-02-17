@@ -1,4 +1,5 @@
 <?php
+require_once('./header.php');
 require_once('./db.php');
 
 if (!isset($_GET['q'])) die('No specific API passed');
