@@ -7,13 +7,13 @@ require_once ('./Database/ChatSessionsDOA.php');
 /*
    POST /chatsessions.php store
 */
-if (!isset($_POST['firstname'])) {
+if (empty($_POST['firstname'])) {
     exit (json_encode(["error" => "firstname is required"]));
 }
-if (!isset($_POST['lastname'])) {
+if (empty($_POST['lastname'])) {
     exit (json_encode(["error" => "lastname is required"]));
 }
-if (!isset($_POST['email'])) {
+if (empty($_POST['email'])) {
     exit (json_encode(["error" => "email is required"]));
 }
 

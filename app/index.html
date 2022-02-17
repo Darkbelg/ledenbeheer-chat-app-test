@@ -25,7 +25,7 @@
     </div>
     <a href="http://localhost:8000?q=moderators">Show all moderators</a>
 
-    <div class="no-flex">
+    <div>
     <form action="" method="post" id="chatSession">
         <label for="firstname">Firstname:
             <input type="text" name="firstname" id="firstname" required>
@@ -36,8 +36,16 @@
         <label for="email">Email:
             <input type="email" name="email" id="email" required>
         </label>
-        <button>Add Chat</button>
+        <button>Start Chat</button>
     </form>
+    </div>
+    <div>
+        <form action="" method="post" id="chatMessage">
+            <label for="chatTextMessage">Chat Text message:
+                <textarea name="chatTextMessage" id="chatTextMessage" cols="30" rows="10" required ></textarea>
+            </label>
+            <button>Send Chat</button>
+        </form>
     </div>
 </body>
 </html>
