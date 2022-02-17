@@ -11,7 +11,7 @@ class ChatSessionsDOA
 
     public function get($firstname, $lastname, $email)
     {
-        $stmt = $this->databaseConnection->prepare( "SELECT id from chat_sessions where firstname like ? AND lastname like ? AND email like ?");
+        $stmt = $this->databaseConnection->prepare( "SELECT id,firstname from chat_sessions where firstname like ? AND lastname like ? AND email like ?");
         $stmt->bind_param("sss",$firstname,$lastname,$email);
         $stmt->execute();
         $results = $stmt->get_result();

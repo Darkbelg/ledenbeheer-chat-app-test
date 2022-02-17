@@ -5,3 +5,9 @@ a {
 body {
     flex-direction: column;
 }
+
+.error {
+    color: beige;
+    background-color: firebrick;
+    padding: 1em;
+}
