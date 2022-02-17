@@ -3,7 +3,7 @@ $(function () {
     var session;
     $('#chatMessage').hide();
 
-    $.get(base_url + "/chatsessions.php")
+    $.get(base_url + "?q=chatsessions")
         .done(function (data) {
             results =  JSON.parse(data);
             console.log(results);
@@ -11,7 +11,7 @@ $(function () {
             for (let i = 0; i < results.length; i++) {
                  rows = rows +
                      "<a class='row' href='" +
-                     base_url + "/chatmessages.php?chatsessionid=" + results[i].id +
+                     base_url + "?q=chatmessages&chatsessionid=" + results[i].id +
                      "'> firstname= " +
                      results[i].firstname +
                      " lastname= " +
@@ -30,7 +30,7 @@ $(function () {
         let firstname = $('#firstname').val();
         let lastname = $('#lastname').val();
         let email = $('#email').val();
-        $.post(base_url + "/chatsessions.php", {firstname: firstname, lastname: lastname, email: email})
+        $.post(base_url + "?q=chatsessions", {firstname: firstname, lastname: lastname, email: email})
             .done(function (data) {
                 console.log('it works', data);
                 if (data.includes("id")) {
@@ -54,7 +54,7 @@ $(function () {
         e.preventDefault();
         let message = $('#chatTextMessage').val();
         $("#chatMessage").before("<p><span>" + session.firstname + ":</span>" + message + "</p>");
-        $.post(base_url + "/chatmessages.php", {message: message, chatsessionid: session.id})
+        $.post(base_url + "?q=chatmessages", {message: message, chatsessionid: session.id})
             .done(function (data) {
                 console.log('it works', data);
                 $('#chatTextMessage').val("");

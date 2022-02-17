@@ -1,18 +1,11 @@
 <?php
-require_once ('./header.php');
-require_once('./db.php');
-require_once ('./Controller/ChatSessions.php');
-require_once ('./Database/ChatSessionsDOA.php');
-
-if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    $chatSession = new Controller\ChatSessions($conn);
-    exit (json_encode($chatSession->index()));
-}
+require_once('./Controller/ChatSessions.php');
+require_once('./Database/ChatSessionsDOA.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     /*
-       POST /chatsessions.php store
-    */
+   POST /chatsessions.php store
+*/
     if (empty($_POST['firstname'])) {
         exit (json_encode(["error" => "firstname is required"]));
     }
@@ -26,3 +19,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $chatSession = new Controller\ChatSessions($conn);
     exit (json_encode($chatSession->store($_POST['firstname'], $_POST['lastname'], $_POST['email'])));
 }
+$chatSession = new Controller\ChatSessions($conn);
+exit (json_encode($chatSession->index()));
