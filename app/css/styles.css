@@ -6,8 +6,21 @@ body {
     flex-direction: column;
 }
 
+.bottom-right {
+    display: inline-block;
+    position: absolute;
+    right: 10px;
+    bottom: 25px;
+}
+
 .error {
     color: beige;
     background-color: firebrick;
+    padding: 1em;
+}
+
+.row {
+    display: block;
+    margin: auto;
     padding: 1em;
 }

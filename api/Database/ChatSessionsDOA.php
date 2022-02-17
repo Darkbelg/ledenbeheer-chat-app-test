@@ -18,7 +18,7 @@ class ChatSessionsDOA
         return $results->fetch_assoc();
     }
 
-    public function create($firstname, $lastname, $email)
+    public function store($firstname, $lastname, $email)
     {
         try {
             $created_at = (new \DateTime("now"))->format("Y-m-d H:i:s");
@@ -28,5 +28,11 @@ class ChatSessionsDOA
         } catch (\Exception $e){
             throw new \Exception("Failed to create session");
         }
+    }
+
+    public function getAll()
+    {
+        $results = $this->databaseConnection->query( "SELECT * from chat_sessions");
+        return $results->fetch_all(MYSQLI_ASSOC);
     }
 }

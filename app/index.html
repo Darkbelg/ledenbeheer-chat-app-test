@@ -23,9 +23,10 @@
     <div>
         <h1>Chat application Ledenbeheer</h1>
     </div>
-    <a href="http://localhost:8000?q=moderators">Show all moderators</a>
+    <div id="allSessions">
+    </div>
 
-    <div>
+    <div class="bottom-right">
     <form action="" method="post" id="chatSession">
         <label for="firstname">Firstname:
             <input type="text" name="firstname" id="firstname" required>
@@ -39,7 +40,7 @@
         <button>Start Chat</button>
     </form>
     </div>
-    <div>
+    <div class="bottom-right">
         <form action="" method="post" id="chatMessage">
             <label for="chatTextMessage">Chat Text message:
                 <textarea name="chatTextMessage" id="chatTextMessage" cols="30" rows="10" required ></textarea>

@@ -13,15 +13,21 @@ class ChatSessions
         $this->databseConnection = $databaseConnection;
     }
 
-    public function create($firstname,$lastname,$email)
+    public function store($firstname,$lastname,$email)
     {
         //First look if there already is a session.
         $chatSessionDOA = new ChatSessionsDOA($this->databseConnection);
         $session = $chatSessionDOA->get($firstname,$lastname,$email);
         if (is_null($session)) {
-            $chatSessionDOA->create($firstname,$lastname,$email);
+            $chatSessionDOA->store($firstname,$lastname,$email);
             $session = $chatSessionDOA->get($firstname,$lastname,$email);
         }
         return $session;
+    }
+
+    public function index()
+    {
+        $chatSessionDOA = new ChatSessionsDOA($this->databseConnection);
+        return $chatSessionDOA->getAll();
     }
 }

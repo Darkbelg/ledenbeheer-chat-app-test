@@ -13,9 +13,15 @@ class ChatMessages
         $this->databaseConnection = $databaseConnection;
     }
 
-    public function create($chat_session_id,$message)
+    public function store($chat_session_id,$message)
     {
         $chatMessagesDOA = new ChatMessagesDOA($this->databaseConnection);
-        return $chatMessagesDOA->create($chat_session_id,$message);
+        return $chatMessagesDOA->store($chat_session_id,$message);
+    }
+
+    public function index($chat_session_id = null)
+    {
+        $chatMessagesDOA = new ChatMessagesDOA($this->databaseConnection);
+        return $chatMessagesDOA->getAll($chat_session_id);
     }
 }
