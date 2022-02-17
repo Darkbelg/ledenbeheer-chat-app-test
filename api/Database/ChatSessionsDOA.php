@@ -21,7 +21,7 @@ class ChatSessionsDOA
     public function create($firstname, $lastname, $email)
     {
         try {
-            $created_at = (new \DateTime("now"))->format("Y-m-d");
+            $created_at = (new \DateTime("now"))->format("Y-m-d H:i:s");
             $stmt = $this->databaseConnection->prepare( "INSERT INTO chat_sessions (created_at,firstname,lastname,email) VALUES (?,?,?,?)");
             $stmt->bind_param("ssss",$created_at,$firstname,$lastname,$email);
             $stmt->execute();
