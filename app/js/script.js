@@ -2,6 +2,34 @@ $(function () {
     var base_url = "http://localhost:8000";
     var session;
     var moderators = [];
+    var timeoutTimer = 5000;
+
+    function refresh() {
+        $.get(base_url + "?q=chatmessages", {chatsessionid: session.id})
+            .done(function (data) {
+                timeoutTimer = 5000;
+                let chatMessages = $(".chatMessages");
+                chatMessages.html("");
+
+                let results = JSON.parse(data);
+                for (let i = 0; i < results.length; i++) {
+                    if (!(results[i].moderator_id == null)) {
+                        chatMessages.append("<p class='message-moderator'>" + results[i].message + "<span> : " + moderators[results[i].moderator_id].firstname + "</span></p>");
+                    } else {
+                        chatMessages.append("<p><span>" + session.firstname + ":</span>" + results[i].message + "</p>");
+                    }
+                    ;
+                }
+                ;
+            })
+            .fail(function (data) {
+                $(".chatMessages").append("<p class='error'>Lost connection to server.</p><hr>");
+                timeoutTimer = 30000;
+            })
+
+        setTimeout(refresh, timeoutTimer);
+    };
+
     $('#chatMessage').hide();
 
     $.get(base_url + "?q=chatsessions")
@@ -46,22 +74,8 @@ $(function () {
                                 moderators[results[i].id] = results[i];
                             }
                             console.log(moderators);
-
                         });
-
-                    $.get(base_url + "?q=chatmessages", {chatsessionid: session.id})
-                        .done(function (data) {
-                            let results = JSON.parse(data);
-                            for (let i = 0; i < results.length; i++) {
-                                if (!(results[i].moderator_id == null)) {
-                                    $("#chatMessage").before("<p class='message-moderator'>" + results[i].message + "<span> : " + moderators[results[i].moderator_id].firstname + "</span></p>");
-                                } else {
-                                    $("#chatMessage").before("<p><span>" + session.firstname + ":</span>" + results[i].message + "</p>");
-                                }
-                                ;
-                            }
-                            ;
-                        });
+                    refresh();
                 }
                 ;
 
@@ -70,7 +84,7 @@ $(function () {
                 }
             })
             .fail(function () {
-                $("#chatSession").before("<p class='error'>Something went wrong starting the session.</p>");
+                $(".chatMessages").append("<p class='error'>Something went wrong starting the session.</p>");
                 console.log('it doesn\'t work',);
             })
     });
@@ -79,18 +93,18 @@ $(function () {
     $("#chatMessage").submit(function (e) {
         e.preventDefault();
         let message = $('#chatTextMessage').val();
-        $("#chatMessage").before("<p><span>" + session.firstname + ":</span>" + message + "</p>");
+        $(".chatMessages").append("<p><span>" + session.firstname + ":</span>" + message + "</p>");
         $.post(base_url + "?q=chatmessages", {message: message, chatsessionid: session.id})
             .done(function (data) {
                 console.log('it works', data);
                 $('#chatTextMessage').val("");
                 if (data.includes("error")) {
-                    $("#chatMessage").before("<p class='error'>" + data["error"] + "</p><hr>");
+                    $(".chatMessages").append("<p class='error'>" + data["error"] + "</p><hr>");
                 }
                 ;
             })
             .fail(function () {
-                $("#chatMessage").before("<p class='error'>Something went wrong sending the message.</p>");
+                $(".chatMessages").append("<p class='error'>Something went wrong sending the message.</p>");
                 console.log('it doesn\'t work',);
             })
     });
