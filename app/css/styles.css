@@ -24,3 +24,7 @@ body {
     margin: auto;
     padding: 1em;
 }
+
+.message-moderator {
+    text-align: right;
+}
