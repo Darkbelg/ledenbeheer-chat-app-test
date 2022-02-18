@@ -37,6 +37,14 @@ $(function () {
                     session = JSON.parse(data);
                     $("#chatSession").hide();
                     $('#chatMessage').show();
+
+                    $.get(base_url + "?q=chatmessages",{ chatsessionid: session.id})
+                        .done(function (data) {
+                            results = JSON.parse(data);
+                            for (let i = 0; i < results.length; i++) {
+                                $("#chatMessage").before("<p><span>" + session.firstname + ":</span>" + results[i].message + "</p>");
+                            };
+                        });
                 };
 
                 if (data.includes("error")) {
